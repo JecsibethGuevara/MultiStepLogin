@@ -4,6 +4,7 @@ export const Register = () => {
   return (
     <>
         <Form/>
+        
     </>
   )
 }

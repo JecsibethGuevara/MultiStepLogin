@@ -1,13 +1,16 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 
-
-const Controller = () => {
+interface ControllerProps {
+  handleNextStep : any,
+  handlePrevStep : any
+}
+const Controller = ({ handleNextStep, handlePrevStep } : ControllerProps) => {
   return (
     <>
-        <Button variant="outlined">Prev</Button>
+        <Button variant="outlined" onClick={handlePrevStep}>Prev</Button>
 
-        <Button variant="outlined">Next</Button>
+        <Button variant="outlined" onClick={handleNextStep}>Next</Button>
 
     </>
   )

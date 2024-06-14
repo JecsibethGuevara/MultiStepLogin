@@ -7,6 +7,9 @@ import StepFour from "./Steps/StepFour";
 import Stack from "@mui/material/Stack";
 import Controller from "./Controller";
 
+ 
+
+
 const Form = () => {
     const [currentStep, setCurrentStep] = useState(1)
     const steps = [
@@ -14,10 +17,12 @@ const Form = () => {
     ]
 
     const handleNextStep = () => {
+        console.log(currentStep)
         setCurrentStep(currentStep + 1);
       };
     
       const handlePrevStep = () => {
+        console.log(currentStep)
         setCurrentStep(currentStep - 1);
       };
 

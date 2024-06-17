@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import registerReducer from './registerSlice';
+import formReducer from './registerSlice';
 
 const store = configureStore({
   reducer: {
-    register : registerReducer
+    register : formReducer
 
   },
 });

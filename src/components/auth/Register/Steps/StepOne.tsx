@@ -1,76 +1,74 @@
-import { useState } from "react"
-import { stepOneFormData } from "../../../../interfaces/form"
-import { Box, Button, TextField } from "@mui/material";
-import { AppDispatch, RootState } from "../../../../redux/store";
-import {useDispatch} from 'react-redux';
+import { useState } from "react";
+import { stepOneFormData } from "../../../../interfaces/form";
+import { Box, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setStepData } from "../../../../redux/formActions";
 
 const StepOne = () => {
-  const register = useSelector((state : RootState) => state.register)
-  const dispatch = useDispatch<AppDispatch>();
-  
-  const [formData, setFormData] = useState<stepOneFormData>({
-    name: '',
-    email: '',
-    phone: ''
-  })
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
+  const [formData, setFormData] = useState<stepOneFormData>({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [event?.target?.name] : event?.target.value,
+      [event?.target?.name]: event?.target.value,
     });
+
+    dispatch(setStepData(1, formData));
+    console.log(state.register.register.step1, "state or wtv");
   };
 
-  const handleSubmit = (event : React.FormEvent<HTMLFormElement>) =>{
-    event.preventDefault();
-    console.log(formData)
-  }
- 
+
   return (
-    <>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="name"
-        label="Name"
-        name="name"
-        autoComplete="name"
-        autoFocus
-        value={formData.name}
-        onChange={handleInputChange}
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label="Email Address"
-        name="email"
-        autoComplete="email"
-        value={formData.email}
-        onChange={handleInputChange}
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        name="phone"
-        label="phone"
-        type="phone"
-        id="phone"
-        autoComplete="current-phone"
-        value={formData.phone}
-        onChange={handleInputChange}
-      />
-    </Box>
+    <> 
+      <Box component="form"  noValidate sx={{ mt: 1 }}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="name"
+          label="Name"
+          name="name"
+          autoComplete="name"
+          autoFocus
+          value={formData.name}
+          onChange={handleInputChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          value={formData.email}
+          onChange={handleInputChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="phone"
+          label="phone"
+          type="phone"
+          id="phone"
+          autoComplete="current-phone"
+          value={formData.phone}
+          onChange={handleInputChange}
+        />
+      </Box>
     </>
-  )
-}
+  );
+};
 
-export default StepOne
-
-function useSelector(arg0: (state: RootState) => stepOneFormData) {
-  throw new Error("Function not implemented.");
-}
+export default StepOne;

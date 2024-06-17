@@ -1,23 +1,34 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { stepOneFormData } from '../interfaces/form';
+import { combineReducers } from '@reduxjs/toolkit';
+import { FormData } from '../interfaces/form';
 
-const initialState: stepOneFormData ={
-    name: '',
-    email : '',
-    phone: ''
-}
+const initialState: FormData = {
+    step1: {
+      name: '',
+      email: '',
+      phone: '',
+    },
+    step2: {
+      plan: '',
+      subscription : '',
+    },
+    step3: {
+        online: false,
+        storage: false,
+        profile: false
+    },
+    step4: {
+        confirmation : false
+    },
+  };
 
-const registerSlice = createSlice({
-    name: 'register',
-    initialState,
-    reducers: {
-        setRegister: (state, action : PayloadAction<stepOneFormData>) =>{
-            state.name = action.payload.name;
-            state.email = action.payload.email;
-            state.phone = action.payload.phone;
-        }
+
+  const formReducer = (state = initialState, action: any) => {
+    switch (action.type) {
+      case 'SET_STEP_DATA':
+        return {...state, [action.step]: action.data };
+      default:
+        return state;
     }
-})
+  };
 
-export const {setRegister} = registerSlice.actions;
-export default registerSlice.reducer
+  export default combineReducers({ register: formReducer });

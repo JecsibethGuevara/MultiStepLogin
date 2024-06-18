@@ -14,20 +14,15 @@ const StepOne = () => {
     phone: "",
   });
 
-
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [event?.target?.name]: event?.target.value,
-    });
-
+  const handleInputChange = async(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  
     dispatch(setStepData(1, formData));
-    console.log(state.register.register.step1, "state or wtv");
+    console.log(state.register.register[1], 'state')
   };
 
-
+  
   return (
     <> 
       <Box component="form"  noValidate sx={{ mt: 1 }}>

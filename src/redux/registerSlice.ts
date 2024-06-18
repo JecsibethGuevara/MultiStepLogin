@@ -2,21 +2,21 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { FormData } from '../interfaces/form';
 
 const initialState: FormData = {
-    step1: {
+    1: {
       name: '',
       email: '',
       phone: '',
     },
-    step2: {
+    2: {
       plan: '',
       subscription : '',
     },
-    step3: {
+    3: {
         online: false,
         storage: false,
         profile: false
     },
-    step4: {
+    4: {
         confirmation : false
     },
   };
@@ -25,7 +25,8 @@ const initialState: FormData = {
   const formReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case 'SET_STEP_DATA':
-        return {...state, [action.step]: action.data };
+        console.log('aaaaaaaaaaaa', action.payload.step, action.payload.data)
+        return {...state, [action.payload.step]: action.payload.data };
       default:
         return state;
     }

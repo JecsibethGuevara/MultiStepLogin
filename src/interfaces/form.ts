@@ -19,8 +19,8 @@ export interface stepFourFormData {
 }
 
 export interface FormData {
-    step1: stepOneFormData;
-    step2: stepTwoFormData;
-    step3: stepThreeFormData;
-    step4: stepFourFormData;
+    1: stepOneFormData;
+    2: stepTwoFormData;
+    3: stepThreeFormData;
+    4: stepFourFormData;
 }

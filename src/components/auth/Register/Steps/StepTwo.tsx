@@ -1,19 +1,32 @@
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import { stepTwoFormData } from "../../../../interfaces/form"
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { registerStep } from "../../../../redux/register/registerSlice";
 
 const StepTwo = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
   const [formData, setFormData] = useState<stepTwoFormData>({
     plan: '',
     subscription: '',
+    price: 0
   })
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
-    setFormData({
-      ...formData,
-      [event?.target?.name] : event?.target.value,
-    });
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  useEffect(() => {
+    dispatch(registerStep({step:2, formData}))
+  },[dispatch, formData]);
+
+  useEffect(() => {
+    console.log(state, 'in two')
+  }, [state])
+  
 
   const handleSubmit = (event : React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
@@ -27,10 +40,10 @@ const StepTwo = () => {
         margin="normal"
         required
         fullWidth
-        id="name"
-        label="Name"
-        name="name"
-        autoComplete="name"
+        id="plan"
+        label="plan"
+        name="plan"
+        autoComplete="plan"
         autoFocus
         value={formData.plan}
         onChange={handleInputChange}
@@ -39,10 +52,10 @@ const StepTwo = () => {
         margin="normal"
         required
         fullWidth
-        id="email"
-        label="Email Address"
-        name="email"
-        autoComplete="email"
+        id="subscription"
+        label="subscription"
+        name="subscription"
+        autoComplete="subscription"
         value={formData.subscription}
         onChange={handleInputChange}
       />

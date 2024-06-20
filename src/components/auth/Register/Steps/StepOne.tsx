@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stepOneFormData } from "../../../../interfaces/form";
 import { Box, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { setStepData } from "../../../../redux/formActions";
+import { useDispatch } from "react-redux";
+import { registerStep } from "../../../../redux/register/registerSlice";
 
 const StepOne = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
 
   const [formData, setFormData] = useState<stepOneFormData>({
     name: "",
@@ -14,15 +13,16 @@ const StepOne = () => {
     phone: "",
   });
 
-  const handleInputChange = async(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-  
-    dispatch(setStepData(1, formData));
-    console.log(state.register.register[1], 'state')
   };
 
+  useEffect(() => {
+    dispatch(registerStep({step:1, formData}))
+  },[dispatch, formData]);
   
+
   return (
     <> 
       <Box component="form"  noValidate sx={{ mt: 1 }}>
